@@ -1,7 +1,7 @@
 // TASK: import helper functions from utils
 // TASK: import initialData
 import { getTasks, createNewTask, patchTask, putTask, deleteTask } from './utils/taskFunctions.js';
-import { initialData } from './initialData';
+import { initialData } from './initialData.js';
 
 /*************************************************************************************************************************************************
  * FIX BUGS!!!
@@ -16,10 +16,18 @@ function initializeData() {
     console.log('Data already exists in localStorage');
   }
 }
-
+initializeData();
 // TASK: Get elements from the DOM
 const elements = {
-
+  headerBoardName: document.getElementById('boards-nav-links-div'),
+  columnDivs: document.querySelectorAll('column-div'),
+  modalWindow: document.getElementById('new-task-modal-window'),
+  editTaskModal: document.getElementById('edit-task-modal-window'),
+  filterDiv: document.getElementById('filterDiv'),
+  hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
+  showSideBarBtn: document.getElementById('show-side-bar-btn'),
+  themeSwitch: document.getElementById('toggle-div'),
+  createNewTaskBtn: document.getElementById('add-new-task-btn')
 }
 
 let activeBoard = ""
@@ -28,7 +36,9 @@ let activeBoard = ""
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
+  console.log(tasks)
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
+  console.log(boards)
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
@@ -64,7 +74,7 @@ function displayBoards(boards) {
 // TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
-  const filteredTasks = tasks.filter(task => task.board = boardName);
+  const filteredTasks = tasks.filter(task => task.board === boardName);
 
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
@@ -79,7 +89,7 @@ function filterAndDisplayTasksByBoard(boardName) {
     const tasksContainer = document.createElement("div");
     column.appendChild(tasksContainer);
 
-    filteredTasks.filter(task => task.status = status).forEach(task => { 
+    filteredTasks.filter(task => task.status === status).forEach(task => { 
       const taskElement = document.createElement("div");
       taskElement.classList.add("task-div");
       taskElement.textContent = task.title;
@@ -103,13 +113,13 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll('.board-btn').foreach(btn => { 
+  document.querySelectorAll('.board-btn').forEach(btn => { 
     
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active') 
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active'); 
     }
   });
 }
@@ -135,7 +145,7 @@ function addTaskToUI(task) {
   taskElement.textContent = task.title; // Modify as needed
   taskElement.setAttribute('data-task-id', task.id);
   
-  tasksContainer.appendChild(); 
+  tasksContainer.appendChild(taskElement); 
 }
 
 
@@ -161,6 +171,7 @@ function setupEventListeners() {
   // Show sidebar event listener
   elements.hideSideBarBtn.addEventListener('click', () => toggleSidebar(false));
   elements.showSideBarBtn.addEventListener('click', () =>  toggleSidebar(true));
+
 
   // Theme switch event listener
   elements.themeSwitch.addEventListener('change', toggleTheme);
@@ -206,7 +217,7 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
- 
+
 }
 
 function toggleTheme() {
