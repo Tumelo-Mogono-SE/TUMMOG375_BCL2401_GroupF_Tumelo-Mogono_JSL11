@@ -77,7 +77,7 @@ function displayBoards(boards) {
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
   const filteredTasks = tasks.filter(task => task.board === boardName);
-
+ console.log(filteredTasks)
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
   elements.columnDivs.forEach(column => {
@@ -238,10 +238,17 @@ function toggleTheme() {
 
 function openEditTaskModal(task) {
   // Set task details in modal inputs
-  
+  const editTaskTitleInputEl = document.getElementById('edit-task-title-input');
+  const editTaskDescInputEl = document.getElementById('edit-task-desc-input');
+  const editSelectStatus = document.getElementById('edit-select-status');
+
+  editTaskTitleInputEl.value = task.title;
+  editTaskDescInputEl.value = task.description;
+  editSelectStatus.value = task.status;
 
   // Get button elements from the task modal
-
+  const saveTaskChangesBtn = document.getElementById('save-task-changes-btn');
+  const deleteTaskBtn = document.getElementById('delete-task-btn');
 
   // Call saveTaskChanges upon click of Save Changes button
  
