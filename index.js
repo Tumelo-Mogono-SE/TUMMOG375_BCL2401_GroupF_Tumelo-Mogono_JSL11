@@ -20,13 +20,13 @@ initializeData();
 // TASK: Get elements from the DOM
 const elements = {
   headerBoardName: document.getElementById('boards-nav-links-div'),
-  columnDivs: document.querySelectorAll('column-div'),
+  columnDivs: document.querySelectorAll('.column-div'),
   modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.getElementById('edit-task-modal-window'),
   filterDiv: document.getElementById('filterDiv'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
-  themeSwitch: document.getElementById('toggle-div'),
+  themeSwitch: document.getElementById('switch'),
   createNewTaskBtn: document.getElementById('add-new-task-btn')
 }
 
@@ -38,11 +38,12 @@ function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   console.log(tasks)
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
-  console.log(boards)
+  console.log(boards);
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
     activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
+    console.log(activeBoard)
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
@@ -62,13 +63,14 @@ function displayBoards(boards) {
       elements.headerBoardName.textContent = board;
       filterAndDisplayTasksByBoard(board);
       activeBoard = board //assigns active board
-      localStorage.setItem("activeBoard", JSON.stringify(activeBoard))
-      styleActiveBoard(activeBoard)
+      localStorage.setItem("activeBoard", JSON.stringify(activeBoard));
+      styleActiveBoard(activeBoard);
     });
     boardsContainer.appendChild(boardElement);
   });
 
 }
+
 
 // Filters tasks corresponding to the board name and displays them on the DOM.
 // TASK: Fix Bugs
@@ -101,6 +103,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       });
 
       tasksContainer.appendChild(taskElement);
+      console.log(tasksContainer);
     });
   });
 }
@@ -113,7 +116,7 @@ function refreshTasksUI() {
 // Styles the active board by adding an active class
 // TASK: Fix Bugs
 function styleActiveBoard(boardName) {
-  document.querySelectorAll('.board-btn').forEach(btn => { 
+  document.querySelectorAll('.board-btn').forEach( btn => { 
     
     if(btn.textContent === boardName) {
       btn.classList.add('active') 
@@ -217,11 +220,13 @@ function addTask(event) {
 
 
 function toggleSidebar(show) {
-
+  const sideBarDiv = document.getElementById('side-bar-div');
+  sideBarDiv.style.display = show ? 'block' : 'none';
+  elements.showSideBarBtn.style.display = show ? 'none' : 'block';
 }
 
 function toggleTheme() {
- 
+
 }
 
 
