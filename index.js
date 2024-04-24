@@ -168,7 +168,7 @@ function setupEventListeners() {
 
   // Clicking outside the modal to close it
   elements.filterDiv.addEventListener('click', () => {
-    toggleModal(false);
+    toggleModal(false, elements.editTaskModal || document.getElementById('new-task-modal-window'));
     elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
   });
 
@@ -263,8 +263,9 @@ function openEditTaskModal(task) {
     toggleModal(false, elements.editTaskModal);
     refreshTasksUI();
   })
-
+  
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
+  elements.filterDiv.style.display = 'block';
 }
 
 function saveTaskChanges(taskId) {
