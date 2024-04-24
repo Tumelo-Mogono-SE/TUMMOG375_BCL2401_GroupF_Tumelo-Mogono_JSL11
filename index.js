@@ -22,7 +22,7 @@ const elements = {
   headerBoardName: document.getElementById('header-board-name'),
   columnDivs: document.querySelectorAll('.column-div'),
   modalWindow: document.getElementById('new-task-modal-window'),
-  editTaskModal: document.getElementById('edit-task-modal-window'),
+  editTaskModal: document.querySelector('.edit-task-modal-window'),
   filterDiv: document.getElementById('filterDiv'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
@@ -100,6 +100,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       // Listen for a click event on each task and open a modal
       taskElement.addEventListener('click', () => { 
         openEditTaskModal(task);
+        console.log(task)
       });
 
       tasksContainer.appendChild(taskElement);
@@ -194,6 +195,7 @@ function setupEventListeners() {
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modal = elements.modalWindow) {
+  console.log('modal =',modal);
   modal.style.display = show ? 'block' : 'none'; 
 }
 
