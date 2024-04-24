@@ -168,7 +168,8 @@ function setupEventListeners() {
 
   // Clicking outside the modal to close it
   elements.filterDiv.addEventListener('click', () => {
-    toggleModal(false, elements.editTaskModal || document.getElementById('new-task-modal-window'));
+    toggleModal(false, elements.editTaskModal);
+    toggleModal(false);
     elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
   });
 
@@ -207,6 +208,7 @@ function addTask(event) {
   event.preventDefault(); 
 
   //Assign user input to the task object
+
     const task = {
       
     };
