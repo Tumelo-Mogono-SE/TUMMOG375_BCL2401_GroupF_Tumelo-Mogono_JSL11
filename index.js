@@ -168,7 +168,7 @@ function setupEventListeners() {
 
   // Clicking outside the modal to close it
   elements.filterDiv.addEventListener('click', () => {
-    toggleModal(false, elements.editTaskModal);
+    toggleModal(false);
     toggleModal(false);
     elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
   });
@@ -208,9 +208,15 @@ function addTask(event) {
   event.preventDefault(); 
 
   //Assign user input to the task object
-
+    const modalTitleInputValue = document.getElementById('title-input').value;
+    const descInputValue = document.getElementById('desc-input').value;
+    const selectStatusValue = document.getElementById('select-status').value;
     const task = {
-      
+      "id": `${JSON.parse(localStorage.getItem("id"))}`,
+      "title": `${modalTitleInputValue}`,
+      "description":`${descInputValue}`,
+      "status": `${selectStatusValue}`,
+      "board": `${activeBoard}`
     };
     const newTask = createNewTask(task);
     if (newTask) {
@@ -276,6 +282,7 @@ function saveTaskChanges(taskId) {
   const editTaskDescInputValue = document.getElementById('edit-task-desc-input').value;
   const editSelectStatusValue = document.getElementById('edit-select-status').value;
 
+  console.log( editSelectStatusValue , editTaskDescInputValue , editTaskTitleInputValue)
   // Create an object with the updated task details
   const updatedTask = {
     "id": `${JSON.parse(localStorage.getItem("id"))}`,
