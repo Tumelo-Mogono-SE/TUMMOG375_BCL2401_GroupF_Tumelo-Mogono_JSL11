@@ -19,7 +19,7 @@ function initializeData() {
 initializeData();
 // TASK: Get elements from the DOM
 const elements = {
-  headerBoardName: document.getElementById('boards-nav-links-div'),
+  headerBoardName: document.getElementById('header-board-name'),
   columnDivs: document.querySelectorAll('.column-div'),
   modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.getElementById('edit-task-modal-window'),
@@ -226,7 +226,10 @@ function toggleSidebar(show) {
 }
 
 function toggleTheme() {
-
+  const body = document.body;
+  body.classList.toggle('light-theme');
+  const isLightTheme = body.classList.contains('light-theme');
+  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled' )
 }
 
 
@@ -273,6 +276,8 @@ function init() {
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
   const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+  console.log(isLightTheme)
   document.body.classList.toggle('light-theme', isLightTheme);
+  elements.themeSwitch.checked = isLightTheme;
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
