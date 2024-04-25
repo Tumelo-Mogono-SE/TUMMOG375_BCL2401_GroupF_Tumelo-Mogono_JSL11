@@ -291,7 +291,7 @@ function saveTaskChanges(taskId) {
 
   // Create an object with the updated task details
   const updatedTask = {
-    "id": `${JSON.parse(localStorage.getItem("id"))}`,
+    "id": `${taskId}`,
     "title": `${editTaskTitleInputValue}`,
     "description": `${editTaskDescInputValue}`,
     "status": `${editSelectStatusValue}`,
@@ -308,13 +308,14 @@ function saveTaskChanges(taskId) {
 }
 
 /*************************************************************************************************************************************************/
+document.querySelector('.side-bar-bottom').style.marginTop = "18em";
 
 document.addEventListener('DOMContentLoaded', function() {
   init(); // init is called after the DOM is fully loaded
 });
 
 function init() {
-  if (localStorage.getItem("logoTheme") !== './assets/logo-dark.svg'){
+  if (localStorage.getItem("logoTheme") === './assets/logo-light.svg'){
     elements.logoMobileImg.src = './assets/logo-light.svg'
   }
   setupEventListeners();
