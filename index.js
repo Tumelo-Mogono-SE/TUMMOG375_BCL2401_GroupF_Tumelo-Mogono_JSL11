@@ -11,7 +11,7 @@ import { initialData } from './initialData.js';
 function initializeData() {
   if (!localStorage.getItem('tasks')) {
     localStorage.setItem('tasks', JSON.stringify(initialData)); 
-    localStorage.setItem('showSideBar', 'true')
+    localStorage.setItem('showSideBar', 'true');
   } else {
     console.log('Data already exists in localStorage');
   }
@@ -42,8 +42,8 @@ function fetchAndDisplayBoardsAndTasks() {
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
     activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
-    elements.headerBoardName.textContent = activeBoard
-    styleActiveBoard(activeBoard)
+    elements.headerBoardName.textContent = activeBoard;
+    styleActiveBoard(activeBoard);
     refreshTasksUI();
   }
 }
@@ -115,7 +115,7 @@ function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach( btn => { 
     
     if(btn.textContent === boardName) {
-      btn.classList.add('active') 
+      btn.classList.add('active'); 
     }
     else {
       btn.classList.remove('active'); 
@@ -184,7 +184,7 @@ function setupEventListeners() {
 
   // Add new task form submission event listener
   elements.modalWindow.addEventListener('submit',  (event) => {
-    addTask(event)
+    addTask(event);
   });
 }
 
@@ -219,15 +219,15 @@ function addTask(event) {
       elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
       event.target.reset();
       refreshTasksUI();
-    }
-}
+    };
+};
 
 
 function toggleSidebar(show) {
   const sideBarDiv = document.getElementById('side-bar-div');
   sideBarDiv.style.display = show ? 'block' : 'none';
   elements.showSideBarBtn.style.display = show ? 'none' : 'block';
-}
+};
 
 function toggleTheme() {
   const body = document.body;
@@ -237,17 +237,17 @@ function toggleTheme() {
   if (isLightTheme) {
     // logoMobileImg.src = './assets/logo-light.svg';
     localStorage.setItem("logoTheme", './assets/logo-light.svg');
-    localStorage.setItem('light-theme', 'disabled')
+    localStorage.setItem('light-theme', 'disabled');
   } else {
 
     // logoMobileImg.src = './assets/logo-dark.svg'
     localStorage.setItem("logoTheme", './assets/logo-dark.svg');
-    localStorage.setItem('light-theme', 'enabled')
-  }
+    localStorage.setItem('light-theme', 'enabled');
+  };
 
   elements.logoMobileImg.src = localStorage.getItem("logoTheme");
   
-}
+};
 
 
 
@@ -279,11 +279,11 @@ function openEditTaskModal(task) {
     toggleModal(false, elements.editTaskModal);
     elements.filterDiv.style.display = 'none';
     refreshTasksUI();
-  })
+  });
   
   toggleModal(true, elements.editTaskModal); // Show the edit task modal
   elements.filterDiv.style.display = 'block';
-}
+};
 
 function saveTaskChanges(taskId) {
   // Get new user inputs
@@ -299,7 +299,7 @@ function saveTaskChanges(taskId) {
     "status": `${editSelectStatusValue}`,
     "board": `${activeBoard}`
 
-  }
+  };
 
   // Update task using a hlper functoin
   patchTask(taskId, updatedTask);
@@ -307,7 +307,7 @@ function saveTaskChanges(taskId) {
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal)
   refreshTasksUI();
-}
+};
 
 /*************************************************************************************************************************************************/
 document.querySelector('.side-bar-bottom').style.marginTop = "18em";
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function init() {
   if (localStorage.getItem("logoTheme") === './assets/logo-light.svg'){
     elements.logoMobileImg.src = './assets/logo-light.svg'
-  }
+  };
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
@@ -327,4 +327,4 @@ function init() {
   document.body.classList.toggle('light-theme', isLightTheme);
   elements.themeSwitch.checked = isLightTheme;
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
-}
+};
