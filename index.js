@@ -269,6 +269,7 @@ function openEditTaskModal(task) {
   saveTaskChangesBtn.addEventListener('click', () => {
     saveTaskChanges(task.id);
     toggleModal(false, elements.editTaskModal);
+    elements.filterDiv.style.display = 'none';
     refreshTasksUI();
   });
 
@@ -276,6 +277,7 @@ function openEditTaskModal(task) {
   deleteTaskBtn.addEventListener('click', () =>{
     deleteTask(task.id);
     toggleModal(false, elements.editTaskModal);
+    elements.filterDiv.style.display = 'none';
     refreshTasksUI();
   })
   
