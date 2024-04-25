@@ -27,7 +27,8 @@ const elements = {
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
   showSideBarBtn: document.getElementById('show-side-bar-btn'),
   themeSwitch: document.getElementById('switch'),
-  createNewTaskBtn: document.getElementById('add-new-task-btn')
+  createNewTaskBtn: document.getElementById('add-new-task-btn'),
+  logoMobileImg: document.getElementById('logo')
 }
 
 let activeBoard = ""
@@ -168,7 +169,7 @@ function setupEventListeners() {
 
   // Clicking outside the modal to close it
   elements.filterDiv.addEventListener('click', () => {
-    toggleModal(false);
+    toggleModal(false, elements.editTaskModal);
     toggleModal(false);
     elements.filterDiv.style.display = 'none'; // Also hide the filter overlay
   });
@@ -237,9 +238,22 @@ function toggleSidebar(show) {
 
 function toggleTheme() {
   const body = document.body;
+  
   body.classList.toggle('light-theme');
   const isLightTheme = body.classList.contains('light-theme');
-  localStorage.setItem('light-theme', isLightTheme ? 'enabled' : 'disabled' )
+  if (isLightTheme) {
+    // logoMobileImg.src = './assets/logo-light.svg';
+    localStorage.setItem("logoTheme", './assets/logo-light.svg');
+    localStorage.setItem('light-theme', 'disabled')
+  } else {
+
+    // logoMobileImg.src = './assets/logo-dark.svg'
+    localStorage.setItem("logoTheme", './assets/logo-dark.svg');
+    localStorage.setItem('light-theme', 'enabled')
+  }
+
+  elements.logoMobileImg.src = localStorage.getItem("logoTheme");
+  
 }
 
 
@@ -308,10 +322,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function init() {
+  if (localStorage.getItem("logoTheme") !== './assets/logo-dark.svg'){
+    elements.logoMobileImg.src = './assets/logo-light.svg'
+  }
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
-  const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
+  const isLightTheme = localStorage.getItem('light-theme') === 'disabled';
   console.log(isLightTheme)
   document.body.classList.toggle('light-theme', isLightTheme);
   elements.themeSwitch.checked = isLightTheme;
