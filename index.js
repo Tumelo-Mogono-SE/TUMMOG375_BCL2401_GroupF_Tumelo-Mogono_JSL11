@@ -37,14 +37,11 @@ let activeBoard = ""
 // TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
-  console.log(tasks)
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
-  console.log(boards);
   displayBoards(boards);
   if (boards.length > 0) {
     const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
     activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
-    console.log(activeBoard)
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
@@ -78,7 +75,6 @@ function displayBoards(boards) {
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
   const filteredTasks = tasks.filter(task => task.board === boardName);
- console.log(filteredTasks)
   // Ensure the column titles are set outside of this function or correctly initialized before this function runs
 
   elements.columnDivs.forEach(column => {
@@ -101,11 +97,9 @@ function filterAndDisplayTasksByBoard(boardName) {
       // Listen for a click event on each task and open a modal
       taskElement.addEventListener('click', () => { 
         openEditTaskModal(task);
-        console.log(task)
       });
 
       tasksContainer.appendChild(taskElement);
-      console.log(tasksContainer);
     });
   });
 }
@@ -197,7 +191,6 @@ function setupEventListeners() {
 // Toggles tasks modal
 // Task: Fix bugs
 function toggleModal(show, modal = elements.modalWindow) {
-  console.log('modal =',modal);
   modal.style.display = show ? 'block' : 'none'; 
 }
 
@@ -296,7 +289,6 @@ function saveTaskChanges(taskId) {
   const editTaskDescInputValue = document.getElementById('edit-task-desc-input').value;
   const editSelectStatusValue = document.getElementById('edit-select-status').value;
 
-  console.log( editSelectStatusValue , editTaskDescInputValue , editTaskTitleInputValue)
   // Create an object with the updated task details
   const updatedTask = {
     "id": `${JSON.parse(localStorage.getItem("id"))}`,
@@ -329,7 +321,6 @@ function init() {
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
   const isLightTheme = localStorage.getItem('light-theme') === 'disabled';
-  console.log(isLightTheme)
   document.body.classList.toggle('light-theme', isLightTheme);
   elements.themeSwitch.checked = isLightTheme;
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
